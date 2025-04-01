@@ -2,7 +2,7 @@
 
 ### Project Overview:
 
-As a backend developer, your task is to design and implement a Social Media API using Django and Django REST Framework. This API will allow users to create, update, delete posts, follow other users, and view a feed of posts from the users they follow. You will be responsible for managing user data, posts, and interactions between users in a simulated real-world social media environment. The project will give you experience in user relationships, database interactions, and handling large datasets, all while focusing on CRUD operations and API design.
+Design and implement a Social Media API using Django and Django REST Framework. This API will allow users to create, update, delete posts, follow other users, and view a feed of posts from the users they follow. 
 
 ### Functional Requirements:
 
