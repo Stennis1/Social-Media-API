@@ -57,8 +57,19 @@ REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     ),
+
     'DEFAULT_AUTHENTICATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
     'PAGE_SIZE': 10,   # Number of results per page
+
+    'DEFAULT_THROTTLE_CLASSES': [
+        'rest_framework.throttling.UserRateThrottling', # For authenticated users 
+        'rest_framework.throttling.AnonRateThrottling', # For unauthenticated users 
+    ],
+
+    'DEFAULT_THROTTLE_RATES': {
+        'user': '100/min', # Limit authenticated users to 100 requests per minute 
+        'anon': '10/min', # Limit anonymous users to 10 requests per minute 
+    },
 }
 
 AUTH_USER_MODEL = 'socialapp.User' # Custom User model
