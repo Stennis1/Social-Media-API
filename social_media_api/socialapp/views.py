@@ -12,17 +12,17 @@ class UserViewSet(viewsets.ModelViewSet):
     permission_classes = [permissions.IsAuthenticated]
 
     # Implementing follow/unfollow logic
-    @action(detail=True, method=['POST'])
+    @action(detail=True, methods=['POST'])
     def follow(self, request, pk=None):
-        user_to_follow = self.get.object()
+        user_to_follow = self.get_object()
         if user_to_follow != request.user:
             request.user.following.add(user_to_follow)
             return Response({'status': 'followed'})
         return Response({'status': 'You cannnot follow yourself'})
 
-    @action(detail=True, method=['POST'])    
+    @action(detail=True, methods=['POST'])    
     def unfollow(self, request, pk=None):
-        user_to_unfollow = self.get.object()
+        user_to_unfollow = self.get_object()
         request.user.following.remove(user_to_unfollow)
         return Response({'status': 'unfollowed'})
 

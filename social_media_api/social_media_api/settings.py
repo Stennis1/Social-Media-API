@@ -37,9 +37,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'socialapp',
-    'rest_framework',
-    'rest_framework_simplejwt',
+    'socialapp',                # Social app
+    'rest_framework',           # Rest framework
+    'rest_framework_simplejwt', # JWT Authentication
 ]
 
 REST_FRAMEWORK = {
@@ -49,6 +49,16 @@ REST_FRAMEWORK = {
 }
 
 AUTH_USER_MODEL = 'socialapp.User' # Custom User model
+
+MIDDLEWARE = [
+    'django.middleware.security.SecurityMiddleware',
+    'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.common.CommonMiddleware',
+    'django.middleware.csrf.CsrfViewMiddleware',
+    'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'django.contrib.messages.middleware.MessageMiddleware',
+    'django.middleware.clickjacking.XFrameOptionsMiddleware',
+]
 
 ROOT_URLCONF = 'social_media_api.urls'
 
