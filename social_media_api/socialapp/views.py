@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from rest_framework import viewsets, permissions
+from rest_framework import viewsets, permissions, filters
 from .models import User, Post, Comment, Like 
 from .serializers import UserSerializer, PostSerializer, CommentSerializer, LikeSerializer
 from rest_framework.decorators import action
@@ -10,6 +10,8 @@ class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
     serializer_class = UserSerializer
     permission_classes = [permissions.IsAuthenticated]
+    filter_backends = [filters.SearchFilter]
+    search_fields = ['username', 'bio']
 
     # Implementing follow/unfollow logic
     @action(detail=True, methods=['POST'])
@@ -31,6 +33,8 @@ class PostViewSet(viewsets.ModelViewSet):
     queryset = Post.objects.all().order_by('-created_at')
     serializer_class = PostSerializer
     permissions_classes = [permissions.IsAuthenticated]
+    filter_backends = [filters.SearchFilter]
+    search_fields = ['content', 'user__username']
 
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)

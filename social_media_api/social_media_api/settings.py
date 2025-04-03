@@ -11,6 +11,9 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
 from pathlib import Path
+import cloudinary
+import cloudinary.uploader
+import cloudinary.api
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -42,10 +45,20 @@ INSTALLED_APPS = [
     'rest_framework_simplejwt', # JWT Authentication
 ]
 
+CLOUDINARY_STORAGE = {
+    'CLOUD_NAME': 'dbp3nuoc7',
+    'API_KEY': '453823314827651',
+    'API_SECRET': 'tXReZydjwYCRbc-IsrtpkCuX4EU',
+}
+
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_simplejwt.authentication.JWTAuthentication',
-    )
+    ),
+    'DEFAULT_AUTHENTICATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    'PAGE_SIZE': 10,   # Number of results per page
 }
 
 AUTH_USER_MODEL = 'socialapp.User' # Custom User model

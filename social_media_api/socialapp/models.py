@@ -1,11 +1,11 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser 
-
+import cloudinary.models
 # Create your models here.
 # Cutom User model
 class User(AbstractUser):
     bio = models.TextField(max_length=250, blank=True)
-    profile = models.ImageField(upload_to='profile_pics/', null=True, blank=True)
+    profile_image = cloudinary.models.CloudinaryField('image', blank=True, null=True)
     followers = models.ManyToManyField('self', symmetrical=False, related_name='following', blank=True)
 
     def __str__(self):
@@ -15,7 +15,7 @@ class User(AbstractUser):
 class Post(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='posts')
     content = models.TextField()
-    image = models.ImageField(upload_to='post_images/', null=True, blank=True)
+    image = cloudinary.models.CloudinaryField('image', blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
