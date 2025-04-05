@@ -63,8 +63,8 @@ REST_FRAMEWORK = {
     'PAGE_SIZE': 10,   # Number of results per page
 
     'DEFAULT_THROTTLE_CLASSES': [
-        'rest_framework.throttling.UserRateThrottling', # For authenticated users 
-        'rest_framework.throttling.AnonRateThrottling', # For unauthenticated users 
+        'rest_framework.throttling.UserRateThrottle', # For authenticated users 
+        'rest_framework.throttling.AnonRateThrottle', # For unauthenticated users 
     ],
 
     'DEFAULT_THROTTLE_RATES': {

@@ -1,65 +1,96 @@
-## ALX_SWE_BE Capstone Project: Social Media API
 
-### Project Overview:
+```markdown
+# 📱 Django Social Media API
 
-Design and implement a Social Media API using Django and Django REST Framework. This API will allow users to create, update, delete posts, follow other users, and view a feed of posts from the users they follow. 
+A high-quality, scalable RESTful Social Media API built with Django and Django REST Framework. This backend powers user authentication, media sharing, following systems, notifications, and more — all ready for frontend integration and future real-time features.
 
-### Functional Requirements:
 
-#### Post Management (CRUD):
-- Implement the ability to Create, Read, Update, and Delete (CRUD) posts.
-- Each post should have the following attributes: Content (text), User (author), Timestamp, and optional Media (e.g., image URLs).
-- Ensure validation for required fields like Content and User.
-- Users can only update or delete their own posts.
+##  Features
 
-#### Users Management (CRUD):
-- Implement CRUD operations for users.
-- Each user should have a unique Username, Email, Password, and a profile that includes optional fields like Bio and Profile Picture.
-- Only authenticated users should be able to create, update, or delete their own posts.
+- ✅ User Registration, Login & JWT Authentication  
+- ✅ Follow/Unfollow System  
+- ✅ Post Creation, Editing, Deletion (with Image Uploads)  
+- ✅ Like/Unlike Posts & Comments  
+- ✅ Commenting on Posts  
+- ✅ Real-time Notifications (via polling; WebSocket-ready)  
+- ✅ Basic Search for Users & Posts  
+- ✅ API Rate Limiting (Throttle classes)  
+- ✅ Token Refresh Support  
+- ✅ Clean, scalable architecture for future expansion  
+- ✅ Password Reset via Email & Email Verification
 
-#### Follow System:
-- Create an endpoint to allow users to follow and unfollow other users.
-- Implement a system to store the follower and following relationships between users.
-- Ensure that users cannot follow themselves.
 
-#### Feed of Posts:
-- Create an endpoint to allow users to view a feed of posts from the users they follow.
-  - The feed should display posts in reverse chronological order (most recent posts first).
-  - Optionally, allow users to filter the feed by date or search for posts by keyword.
+## 🧱 Tech Stack
 
-### Technical Requirements:
+- **Backend:** Django, Django REST Framework  
+- **Authentication:** JWT via SimpleJWT  
+- **Database:** PostgreSQL / SQLite (dev)  
+- **Deployment:** PythonAnywhere / Heroku  
+- **Others:** Pillow (Image), django-cors-headers, drf-yasg (optional)  
 
-#### Database:
-- Use Django ORM to interact with the database.
-- Define models for Users, Posts, and Followers.
-- Ensure that each post is linked to a user and followers/following relationships are tracked efficiently.
 
-#### Authentication:
-- Implement user authentication using Django’s built-in authentication system.
-- Users must be logged in to create, update, or delete posts, follow other users, or view their feed.
-- Optionally, implement token-based authentication (JWT) to provide secure access to the API.
+## 🛠️ Installation (Local)
 
-#### API Design:
-- Use Django Rest Framework (DRF) to design and expose the necessary API endpoints.
-- Follow RESTful principles, using appropriate HTTP methods (GET, POST, PUT, DELETE) for different operations.
-- Ensure proper error handling, with relevant HTTP status codes (e.g., 404 for not found, 400 for bad request).
+1. **Clone the Repo**
+   ```bash
+   git clone https://github.com/yourusername/social-media-api.git
+   cd social-media-api
+   ```
 
-#### Deployment:
-- Deploy the API on Heroku or PythonAnywhere.
-- Ensure that the API is accessible, secure, and performs well in the deployed environment.
+2. **Create & Activate a Virtual Environment**
+   ```bash
+   python -m venv venv
+   source venv/bin/activate  # On Windows: venv\Scripts\activate
+   ```
 
-#### Pagination and Sorting:
-- Add pagination to the feed of posts for users with large numbers of followed users or a large volume of posts.
-- Provide sorting options such as sorting by Date or Popularity (likes, comments).
+3. **Install Dependencies**
+   ```bash
+   pip install -r requirements.txt
+   ```
 
-### Stretch Goals (Optional):
+4. **Apply Migrations**
+   ```bash
+   python manage.py migrate
+   ```
 
-- **Likes and Comments:** Implement the ability for users to like and comment on posts, with endpoints to manage likes and comments.
-- **Notifications:** Add a notification system where users are notified when someone follows them, likes their post, or comments on it.
-- **Direct Messaging:** Implement a direct messaging feature allowing users to send private messages to each other.
-- **Post Sharing and Reposts:** Add functionality for users to share or “repost” content from other users in their feed.
-- **Hashtags and Tagging:** Allow users to tag other users in posts or use hashtags, with endpoints to view posts tagged with specific hashtags or mentions.
-- **Trending Posts:** Implement a feature to display trending posts based on the number of likes or reposts in a given period.
-- **Profile Customization:** Allow users to customize their profile with additional fields such as Location, Website, and Cover Photo.
-- **Media Uploads:** Add functionality for users to upload media files (images, videos) with their posts, storing these files on a cloud service like AWS S3.
+5. **Run the Server**
+   ```bash
+   python manage.py runserver
+   ```
 
+6. **Create Superuser (Optional)**
+   ```bash
+   python manage.py createsuperuser
+   ```
+
+---
+
+## 🧪 API Testing
+
+You can use:
+- **Postman**
+- **cURL**
+- **DRF's browsable API** (enabled in development)
+
+---
+
+## 📌 API Endpoints (Examples)
+
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| POST   | `/api/register/`        | Register a new user         |
+| POST   | `/api/token/`           | Login (JWT token)           |
+| GET    | `/api/posts/`           | List all posts              |
+| POST   | `/api/posts/`           | Create a post               |
+| POST   | `/api/follow/<username>/` | Follow a user             |
+| POST   | `/api/posts/<id>/like/` | Like a post                 |
+
+---
+
+## 🧠 Future Enhancements
+- Image Compression for Media Uploads 
+- Real-time Chat & WebSocket support (via Django Channels)  
+- Enhanced Admin Dashboard  
+- Frontend Integration (React / Flutter)  
+- Analytics and Reporting  
+- Tagging and Hashtag support  
