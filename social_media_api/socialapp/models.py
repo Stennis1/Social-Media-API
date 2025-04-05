@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser 
 import cloudinary.models
+
 # Create your models here.
 # Cutom User model
 class User(AbstractUser):
@@ -14,9 +15,9 @@ class User(AbstractUser):
 # Post model
 class Post(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='posts')
-    content = models.TextField()
+    content = models.TextField(db_index=True)
     image = cloudinary.models.CloudinaryField('image', blank=True, null=True)
-    created_at = models.DateTimeField(auto_now_add=True)
+    created_at = models.DateTimeField(auto_now_add=True, db_index=True)
     updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
