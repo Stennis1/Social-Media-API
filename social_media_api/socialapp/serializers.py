@@ -9,7 +9,7 @@ class UserSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User 
-        fields = ['id', 'username', 'bio', 'profile_pic', 'followers', 'following']
+        fields = ['id', 'username', 'bio', 'profile_image', 'followers_count', 'following_count']
 
 
 # Serializer for Post Model
@@ -22,7 +22,7 @@ class PostSerializer(serializers.ModelSerializer):
 
 
 # Serializer for Comment Model
-class CommentSerializer():
+class CommentSerializer(serializers.ModelSerializer):
     user = UserSerializer(read_only=True)
 
     class Meta:

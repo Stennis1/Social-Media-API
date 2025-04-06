@@ -2,10 +2,23 @@ from django.shortcuts import render
 from rest_framework import viewsets, permissions, filters
 from .models import User, Post, Comment, Like 
 from .serializers import UserSerializer, PostSerializer, CommentSerializer, LikeSerializer
-from rest_framework.decorators import action
+from rest_framework.decorators import action, api_view
 from rest_framework.response import Response 
 from channels.layers import get_channel_layer
-from asgiref.sync import async_to_sync 
+from asgiref.sync import async_to_sync
+from django.contrib.auth.tokens import default_token_generator
+from django.http import JsonResponse
+from django.core.mail import send_mail
+from django.template.loader import render_to_string 
+from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
+from django.contrib.auth import get_user_model
+from django.utils.encoding import force_bytes 
+from django.urls import reverse 
+from django.conf import settings 
+import logging
+
+logger = logging.getLogger(__name__)
+User = get_user_model()
 
 # Create your views here.
 class UserViewSet(viewsets.ModelViewSet):
@@ -60,3 +73,49 @@ def send_notifications(user_id, message):
         f"user_{user_id}",
         {"type": "send_notification", "message": message}
     )
+
+# Handle password reset request (Sends email reset link)
+@api_view(['POST'])
+def password_reset_request(request):
+    email = request.data.get('email')
+    try:
+        user = get_user_model().objects.get(email=email)
+    except User.DoesNotExist:
+        return JsonResponse({'error: User with this email does not exist.'}, status=400)
+
+    # Generate reset token and UID 
+    uid = urlsafe_base64_encode(force_bytes(user.pk))
+    token = default_token_generator.make_token(user)
+    reset_url = request.build_absolute_uri(reverse('password_reset_confirm', kwargs={'uidb64': uid, 'token': token}))
+
+    # Send email
+    subject = "Password Reset Request"
+    message = render_to_string('password_reset_email.txt', {
+        'user': user,
+        'reset_url': reset_url,
+    })
+    send_mail(subject, message, settings.DEFAULT_FROM_EMAIL, [user.email])
+    return JsonResponse({'message': 'Password email sent if email exists.'}, status=200)
+
+
+# Confirm password resets (Allows user to reset password)
+@api_view(['POST'])
+def password_reset_confirm(request, uidb64, token):
+    try:
+        uid =  urlsafe_base64_decode(uidb64).decode()  
+        user = get_user_model().objects.get(pk=uid)
+    except (TypeError, ValueError, User.DoesNotExist):
+        return JsonResponse({'error: Invalid reset link.'}, status=400)
+
+    if default_token_generator.check_token(user, token):
+        new_password = request.data.get('new_password1')
+        confirm_password = request.data.get('new_password2')
+
+        if new_password != confirm_password:
+            return JsonResponse({'error': 'Passwords do not match'}, status=400)
+
+        user.set_password(new_password)
+        user.save()
+        return JsonResponse({'message': 'Password reset successful'}, status=200)
+
+    return JsonResponse({'error': 'Invalid token or expired link'}, status=400)

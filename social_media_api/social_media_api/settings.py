@@ -64,7 +64,7 @@ REST_FRAMEWORK = {
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
     'PAGE_SIZE': 10,   # Number of results per page
 
-    'DEFAULT_THROTTLE_CLASSES':eM [
+    'DEFAULT_THROTTLE_CLASSES': [
         'rest_framework.throttling.UserRateThrottle', # For authenticated users 
         'rest_framework.throttling.AnonRateThrottle', # For unauthenticated users 
     ],
@@ -77,18 +77,18 @@ REST_FRAMEWORK = {
 
 AUTH_USER_MODEL = 'socialapp.User' # Custom User model
 
-# Sending email for password reset 
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.gmail.com'    
-EMAIL_PORT = 587
-EMAIL_USE_TLS = True
-EMAIL_HOST_USER = 'stennismith@gmail.com'
-EMAIL_HOST_PASSWORD = 'eijv bena uume jwty'
-DEFAULT_FROM_EMAIL = 'social_media_api <stennismith@gmail.com>'
+# Sending email for password reset (Production)
+# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+# EMAIL_HOST = 'smtp.gmail.com'    
+# EMAIL_PORT = 587
+# EMAIL_USE_TLS = True
+# EMAIL_HOST_USER = 'stennismith@gmail.com'
+# EMAIL_HOST_PASSWORD = 'eijv bena uume jwty'
+# DEFAULT_FROM_EMAIL = 'social_media_api <stennismith@gmail.com>'
 
 # Sending email for password reset (Testing purposes)
-# EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-# DEFAULT_FROM_EMAIL = 'social_media_api <stennismith@gmail.com>'
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+DEFAULT_FROM_EMAIL = 'social_media_api <stennismith@gmail.com>'
 
 
 MIDDLEWARE = [
