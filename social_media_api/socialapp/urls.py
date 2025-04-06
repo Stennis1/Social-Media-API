@@ -15,6 +15,6 @@ urlpatterns = [
     path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
     path('api/password_reset/', views.password_reset_request, name='password_reset'),
-    path('api/reset/<uidb64>/<token>/', views.password_reset_confirm, name='passwword_reset_confirm'),
+    path('api/reset/<uidb64>/<token>/', views.password_reset_confirm, name='password_reset_confirm'),
     path('', include(router.urls)),
 ]

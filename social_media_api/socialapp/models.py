@@ -8,7 +8,7 @@ class User(AbstractUser):
     bio = models.TextField(max_length=250, blank=True)
     profile_image = models.ImageField('image', blank=True, null=True)
     followers = models.ManyToManyField('self', symmetrical=False, related_name='following', blank=True)
-
+    created_at = models.DateTimeField(auto_now_add=True, null=True)
     def __str__(self):
         return self.username 
 
