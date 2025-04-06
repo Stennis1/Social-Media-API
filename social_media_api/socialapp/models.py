@@ -6,7 +6,7 @@ import cloudinary.models
 # Cutom User model
 class User(AbstractUser):
     bio = models.TextField(max_length=250, blank=True)
-    profile_image = cloudinary.models.CloudinaryField('image', blank=True, null=True)
+    profile_image = models.ImageField('image', blank=True, null=True)
     followers = models.ManyToManyField('self', symmetrical=False, related_name='following', blank=True)
 
     def __str__(self):
@@ -16,7 +16,7 @@ class User(AbstractUser):
 class Post(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='posts')
     content = models.TextField(db_index=True)
-    image = cloudinary.models.CloudinaryField('image', blank=True, null=True)
+    image = models.ImageField('image', blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True, db_index=True)
     updated_at = models.DateTimeField(auto_now=True)
 

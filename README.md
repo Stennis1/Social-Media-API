@@ -12,29 +12,29 @@ A high-quality, scalable RESTful Social Media API built with Django and Django R
 - ✅ Post Creation, Editing, Deletion (with Image Uploads)  
 - ✅ Like/Unlike Posts & Comments  
 - ✅ Commenting on Posts  
-- ✅ Real-time Notifications (via polling; WebSocket-ready)  
-- ✅ Basic Search for Users & Posts  
+- ✅ Real-time Notifications 
 - ✅ API Rate Limiting (Throttle classes)  
 - ✅ Token Refresh Support  
+- ✅ Basic Search for Users & Posts  
 - ✅ Clean, scalable architecture for future expansion  
-- ✅ Password Reset via Email & Email Verification
 
 
 ## 🧱 Tech Stack
 
-- **Backend:** Django, Django REST Framework  
-- **Authentication:** JWT via SimpleJWT  
-- **Database:** PostgreSQL / SQLite (dev)  
-- **Deployment:** PythonAnywhere / Heroku  
-- **Others:** Pillow (Image), django-cors-headers, drf-yasg (optional)  
-
+- Backend: Django, Django REST Framework  
+- Authentication: JWT via SimpleJWT  
+- Database: PostgreSQL   
+- Deployment: PythonAnywhere  
+- Others: Pillow (Image) 
+```
 
 ## 🛠️ Installation (Local)
 
 1. **Clone the Repo**
+   
    ```bash
-   git clone https://github.com/yourusername/social-media-api.git
-   cd social-media-api
+   git clone https://github.com/Stennis1/Social-Media-API.git
+   cd social_media_api
    ```
 
 2. **Create & Activate a Virtual Environment**
@@ -94,3 +94,4 @@ You can use:
 - Frontend Integration (React / Flutter)  
 - Analytics and Reporting  
 - Tagging and Hashtag support  
+- Password Reset via Email & Email Verification

@@ -26,9 +26,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-k@d8w3p(peisx75r$$9$@y*wlip6jsc$-bd#tx4==rv9u%nnz+'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
-ALLOWED_HOSTS = ["Stennis1.pythonanywhere.com"]
+ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -40,10 +40,11 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'socialapp',                # Social app
-    'rest_framework',           # Rest framework
-    'rest_framework_simplejwt', # JWT Authentication
-    'channels',
+    'socialapp',                 # Social app
+    'rest_framework',            # Rest framework
+    'rest_framework_simplejwt',  # JWT Authentication
+    'channels', # Channels for Websocket support (Notifications)
+    'django_rest_passwordreset', # Password reset
 ]
 
 CLOUDINARY_STORAGE = {
@@ -60,9 +61,10 @@ REST_FRAMEWORK = {
     ),
 
     'DEFAULT_AUTHENTICATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
     'PAGE_SIZE': 10,   # Number of results per page
 
-    'DEFAULT_THROTTLE_CLASSES': [
+    'DEFAULT_THROTTLE_CLASSES':eM [
         'rest_framework.throttling.UserRateThrottle', # For authenticated users 
         'rest_framework.throttling.AnonRateThrottle', # For unauthenticated users 
     ],
@@ -74,6 +76,20 @@ REST_FRAMEWORK = {
 }
 
 AUTH_USER_MODEL = 'socialapp.User' # Custom User model
+
+# Sending email for password reset 
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'    
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'stennismith@gmail.com'
+EMAIL_HOST_PASSWORD = 'eijv bena uume jwty'
+DEFAULT_FROM_EMAIL = 'social_media_api <stennismith@gmail.com>'
+
+# Sending email for password reset (Testing purposes)
+# EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+# DEFAULT_FROM_EMAIL = 'social_media_api <stennismith@gmail.com>'
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
